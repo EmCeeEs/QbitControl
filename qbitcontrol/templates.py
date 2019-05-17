@@ -7,8 +7,8 @@ class LZ(QuantumSystem):
     """Landau-Zener-Majorana-Stueckelberg"""
     def __init__(self, alpha, delta):
         H = sp.ImmutableMatrix(
-            [[alpha*_t          , delta     ],
-             [sp.conjugate(delta) , -alpha*_t ]])
+            [[1/2*alpha*_t          , 1/2*delta     ],
+             [1/2*sp.conjugate(delta) , -1/2*alpha*_t ]])
 
         if not sp.S(delta).has(_t):
             self._lz_value = self.lz_formula(alpha, delta)
@@ -27,16 +27,7 @@ class LZ(QuantumSystem):
         gamma = np.power(np.abs(delta), 2)/(2*np.abs(alpha))
         return np.exp(-2*np.pi*gamma)
 
-class LZ_new(QuantumSystem):
-    """Landau-Zener-Majorana-Stueckelberg"""
-    def __init__(self, alpha, delta):
-        H = sp.ImmutableMatrix(
-            [[1/2*alpha*_t          , 1/2*delta     ],
-             [1/2*sp.conjugate(delta) , -1/2*alpha*_t ]])
-
-        QuantumSystem.__init__(self, H)
-
-class LZ_Noisy(QuantumSystem):
+class LZNoisy(QuantumSystem):
     """Landau-Zener-Majorana-Stueckelberg + Noise"""
     def __init__(self, alpha, delta, noise=1e-10):
         sys_LZ = LZ(alpha, delta)
@@ -145,3 +136,4 @@ class General(QuantumSystem):
                     H[i,j] = H[j,i] = delta
         sp.pprint(H)
         QuantumSystem.__init__(self, H)
+
