@@ -9,5 +9,9 @@ setup(
     author_email='marcus.theisen@posteo.net',
     license='MIT',
     packages=['qbitcontrol'],
+    install_requires=[
+        'scipy',
+        'sympy',
+    ],
     zip_safe=False,
 )
